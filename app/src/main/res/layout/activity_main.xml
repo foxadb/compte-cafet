@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="samy.comptecafet.MainActivity"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
+
+    <TextView
+        android:id="@+id/resultatTransaction"
+        android:layout_width="395dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Résultat de la Transaction"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        tools:layout_editor_absoluteX="8dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginStart="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="24dp">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="136dp"
+            android:layout_height="110dp"
+            android:layout_weight="1"
+            app:srcCompat="@mipmap/cercle_imag_launcher"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="343dp" />
+
+        <TextView
+            android:id="@+id/SoldeText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="Solde"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="36sp"
+            tools:layout_editor_absoluteX="35dp"
+            tools:layout_editor_absoluteY="52dp" />
+
+        <View
+            android:layout_width="12dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/solde"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="0.00 €"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/holo_orange_light"
+            android:textSize="36sp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="32dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        android:id="@+id/linearLayout2"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
+
+        <Button
+            android:id="@+id/consommer"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:text="Consommer"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="144dp" />
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.35" />
+
+        <Button
+            android:id="@+id/depot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.52"
+            android:text="Depot"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="269dp"
+            tools:layout_editor_absoluteY="144dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resultatTransaction">
+
+        <EditText
+            android:id="@+id/resetSolde"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:text="0.00"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5.48"
+            android:text="€"
+            android:textAlignment="textStart"
+            android:textSize="24sp" />
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.35" />
+
+        <Button
+            android:id="@+id/resetSoldeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.45"
+            android:text="Reset Solde"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="395dp"
+        android:layout_height="172dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
+        tools:layout_editor_absoluteX="8dp">
+
+        <LinearLayout
+            android:id="@+id/historique"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical" />
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
