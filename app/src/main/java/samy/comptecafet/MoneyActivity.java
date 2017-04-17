@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,10 +13,17 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import samy.comptecafet.operations.Compte;
+import samy.comptecafet.operations.Operation;
+import samy.comptecafet.operations.TypeOperation;
+import samy.comptecafet.operations.Depot;
+import samy.comptecafet.operations.Retrait;
+
 public class MoneyActivity extends AppCompatActivity {
 
     private Compte compte;
-    private Virement virement;
+    private TypeOperation typeOperation = TypeOperation.DEPOT;
+    private Operation operation;
 
     private TextView soldeActuel;
     private TextView nouveauSolde;
@@ -34,8 +40,6 @@ public class MoneyActivity extends AppCompatActivity {
 
         compte = getIntent().getParcelableExtra("compte");
 
-        virement = new Virement(TypeVirement.DEPOT, 0);
-
         soldeActuel = (TextView) findViewById(R.id.soldeActuel);
         nouveauSolde = (TextView) findViewById(R.id.nouveauSolde);
         montant = (EditText) findViewById(R.id.montant);
@@ -49,7 +53,6 @@ public class MoneyActivity extends AppCompatActivity {
         montant.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                setVirement();
                 displaySolde();
             }
 
@@ -65,7 +68,14 @@ public class MoneyActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                setVirement();
+                if (depot.isChecked()) {
+                    typeOperation = TypeOperation.DEPOT;
+                }
+
+                if (retrait.isChecked()) {
+                    typeOperation = TypeOperation.RETRAIT;
+                }
+
                 displaySolde();
             }
         });
@@ -74,11 +84,13 @@ public class MoneyActivity extends AppCompatActivity {
         effectuer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setVirement();
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("virement", virement);
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
+                if (!montant.getText().toString().equals("")) {
+                    operation = createOperation();
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("operation", operation);
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                }
             }
         });
 
@@ -98,27 +110,32 @@ public class MoneyActivity extends AppCompatActivity {
         soldeActuel.setText(compte.getSoldeString() + " €");
 
         double resultat = compte.getSolde();
-        if (virement.isDepot()) {
-            resultat = Math.round((resultat + virement.getMontant()) * 100) / 100.;
+
+        double montant;
+        if (this.montant.getText().toString().equals("")) {
+            montant = 0;
+        } else {
+            montant = Double.parseDouble(this.montant.getText().toString());
         }
-        if (virement.isRetrait()) {
-            resultat = Math.round((resultat - virement.getMontant()) * 100) / 100.;
+
+        if (typeOperation.isDepot()) {
+            resultat = Math.round((resultat + montant) * 100) / 100.;
         }
+        if (typeOperation.isRetrait()) {
+            resultat = Math.round((resultat - montant) * 100) / 100.;
+        }
+
         nouveauSolde.setText(String.valueOf(resultat) + " €");
     }
 
-    private void setVirement() {
-        if (depot.isChecked()) {
-            virement.setType(TypeVirement.DEPOT);
-        }
-        if (retrait.isChecked()) {
-            virement.setType(TypeVirement.RETRAIT);
-        }
-
-        if (montant.getText().toString().equals("")) {
-            virement.setMontant(0);
-        } else {
-            virement.setMontant(Double.parseDouble(montant.getText().toString()));
+    private Operation createOperation() {
+        switch (typeOperation) {
+            case DEPOT:
+                return new Depot(Math.round(Double.parseDouble(montant.getText().toString())) * 100 / 100.);
+            case RETRAIT:
+                return new Retrait(Math.round(Double.parseDouble(montant.getText().toString())) * 100 / 100.);
+            default:
+                throw new IllegalArgumentException();
         }
     }
 

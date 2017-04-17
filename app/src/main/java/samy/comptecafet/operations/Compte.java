@@ -1,10 +1,7 @@
-package samy.comptecafet;
+package samy.comptecafet.operations;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.TextView;
-
-import java.io.Serializable;
 
 /**
  * Created by samy on 14/04/17.

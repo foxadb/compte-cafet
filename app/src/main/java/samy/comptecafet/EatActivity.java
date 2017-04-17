@@ -10,10 +10,14 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import samy.comptecafet.operations.Achat;
+import samy.comptecafet.operations.Compte;
+import samy.comptecafet.operations.Produit;
+
 public class EatActivity extends AppCompatActivity {
 
     private Compte compte;
-    private Transaction transaction;
+    private Achat achat;
 
     private TextView soldeRestant;
     private TextView prix;
@@ -39,7 +43,7 @@ public class EatActivity extends AppCompatActivity {
 
         compte = getIntent().getParcelableExtra("compte");
 
-        transaction = new Transaction();
+        achat = new Achat(0);
 
         soldeRestant = (TextView) findViewById(R.id.soldeRestant);
         prix = (TextView) findViewById(R.id.prix);
@@ -73,7 +77,7 @@ public class EatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("transaction", transaction);
+                returnIntent.putExtra("achat", achat);
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
@@ -91,18 +95,18 @@ public class EatActivity extends AppCompatActivity {
     }
 
     private void displayPrix() {
-        prix.setText(transaction.getPrixString());
-        double resultat = Math.round((compte.getSolde() - transaction.getPrix()) * 100) / 100.;
-        soldeRestant.setText(String.valueOf(resultat) + "€");
+        prix.setText(achat.getMontantString());
+        double resultat = Math.round((compte.getSolde() - achat.getMontant()) * 100) / 100.;
+        soldeRestant.setText(String.valueOf(resultat) + " €");
     }
 
     private CompoundButton.OnCheckedChangeListener tierListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                transaction.addProduit(Produit.TIER, 1);
+                achat.addProduit(Produit.TIER, 1);
             } else {
-                transaction.removeProduit(Produit.TIER);
+                achat.removeProduit(Produit.TIER);
             }
             displayPrix();
         }
@@ -112,9 +116,9 @@ public class EatActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                transaction.addProduit(Produit.DEMI, 1);
+                achat.addProduit(Produit.DEMI, 1);
             } else {
-                transaction.removeProduit(Produit.DEMI);
+                achat.removeProduit(Produit.DEMI);
             }
             displayPrix();
         }
@@ -124,9 +128,9 @@ public class EatActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                transaction.addProduit(Produit.DTIER, 1);
+                achat.addProduit(Produit.DTIER, 1);
             } else {
-                transaction.removeProduit(Produit.DTIER);
+                achat.removeProduit(Produit.DTIER);
             }
             displayPrix();
         }
@@ -136,9 +140,9 @@ public class EatActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                transaction.addProduit(Produit.HOTDOG, 1);
+                achat.addProduit(Produit.HOTDOG, 1);
             } else {
-                transaction.removeProduit(Produit.HOTDOG);
+                achat.removeProduit(Produit.HOTDOG);
             }
             displayPrix();
         }
@@ -148,9 +152,9 @@ public class EatActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                transaction.addProduit(Produit.PANINI, 1);
+                achat.addProduit(Produit.PANINI, 1);
             } else {
-                transaction.removeProduit(Produit.PANINI);
+                achat.removeProduit(Produit.PANINI);
             }
             displayPrix();
         }
@@ -160,9 +164,9 @@ public class EatActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                transaction.addProduit(Produit.PIZZA, 1);
+                achat.addProduit(Produit.PIZZA, 1);
             } else {
-                transaction.removeProduit(Produit.PIZZA);
+                achat.removeProduit(Produit.PIZZA);
             }
             displayPrix();
         }
@@ -171,9 +175,9 @@ public class EatActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                transaction.addProduit(Produit.COCA, 1);
+                achat.addProduit(Produit.COCA, 1);
             } else {
-                transaction.removeProduit(Produit.COCA);
+                achat.removeProduit(Produit.COCA);
             }
             displayPrix();
         }
@@ -183,9 +187,9 @@ public class EatActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                transaction.addProduit(Produit.ICETEA, 1);
+                achat.addProduit(Produit.ICETEA, 1);
             } else {
-                transaction.removeProduit(Produit.ICETEA);
+                achat.removeProduit(Produit.ICETEA);
             }
             displayPrix();
         }
@@ -195,9 +199,9 @@ public class EatActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                transaction.addProduit(Produit.KITKAT, 1);
+                achat.addProduit(Produit.KITKAT, 1);
             } else {
-                transaction.removeProduit(Produit.KITKAT);
+                achat.removeProduit(Produit.KITKAT);
             }
             displayPrix();
         }
@@ -207,9 +211,9 @@ public class EatActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                transaction.addProduit(Produit.BUENO, 1);
+                achat.addProduit(Produit.BUENO, 1);
             } else {
-                transaction.removeProduit(Produit.BUENO);
+                achat.removeProduit(Produit.BUENO);
             }
             displayPrix();
         }
