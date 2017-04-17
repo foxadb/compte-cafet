@@ -1,21 +1,16 @@
-package samy.comptecafet;
+package samy.comptecafet.operations;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by samy on 15/04/17.
  */
 
-public class Transaction implements Parcelable {
-
-    private Date date;
-
-    private double prix;
+public class Achat extends Operation {
 
     private HashMap<Produit, Integer> liste;
 
@@ -34,21 +29,9 @@ public class Transaction implements Parcelable {
         prixProduits.put(Produit.BUENO, 0.6);
     }
 
-    public Transaction() {
-        this.date = new Date();
-        this.prix = 0;
+    public Achat(double montant) {
+        super(TypeOperation.ACHAT, montant);
         this.liste = new HashMap<Produit, Integer>();
-    }
-    public Date getDate() {
-        return date;
-    }
-
-    public double getPrix() {
-        return prix;
-    }
-
-    public String getPrixString() {
-        return String.valueOf(Math.round(prix*100)/100.) + " €";
     }
 
     public HashMap<Produit, Integer> getListe() {
@@ -60,13 +43,31 @@ public class Transaction implements Parcelable {
     }
 
     public void addProduit(Produit produit, int quantite) {
-        prix += prixProduits.get(produit) * quantite;
+        setMontant(getMontant() + prixProduits.get(produit) * quantite);
         liste.put(produit, quantite);
     }
 
     public void removeProduit(Produit produit) {
-        prix -= prixProduits.get(produit) * liste.get(produit);
+        setMontant(getMontant() - prixProduits.get(produit) * liste.get(produit));
         liste.remove(produit);
+    }
+
+    public String getListeString() {
+        StringBuilder sb = new StringBuilder();
+        Iterator it = liste.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<Produit, Integer> pair = (Map.Entry) it.next();
+            sb.append(pair.getKey().toString());
+            sb.append(",");
+            sb.append(pair.getValue().toString());
+            sb.append(",");
+            sb.append(getPrixProduits().get(pair.getKey()).toString());
+            sb.append(",");
+            sb.append(String.valueOf(Math.round(
+                    getPrixProduits().get(pair.getKey()) * pair.getValue() * 100) / 100.));
+            sb.append(",");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -76,27 +77,25 @@ public class Transaction implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.date != null ? this.date.getTime() : -1);
-        dest.writeDouble(this.prix);
+        super.writeToParcel(dest, flags);
         dest.writeSerializable(this.liste);
     }
 
-    protected Transaction(Parcel in) {
-        long tmpDate = in.readLong();
-        this.date = tmpDate == -1 ? null : new Date(tmpDate);
-        this.prix = in.readDouble();
+    protected Achat(Parcel in) {
+        super(in);
         this.liste = (HashMap<Produit, Integer>) in.readSerializable();
     }
 
-    public static final Creator<Transaction> CREATOR = new Creator<Transaction>() {
+    public static final Creator<Achat> CREATOR = new Creator<Achat>() {
         @Override
-        public Transaction createFromParcel(Parcel source) {
-            return new Transaction(source);
+        public Achat createFromParcel(Parcel source) {
+            return new Achat(source);
         }
 
         @Override
-        public Transaction[] newArray(int size) {
-            return new Transaction[size];
+        public Achat[] newArray(int size) {
+            return new Achat[size];
         }
     };
+
 }

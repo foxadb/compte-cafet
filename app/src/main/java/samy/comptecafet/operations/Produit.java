@@ -1,4 +1,4 @@
-package samy.comptecafet;
+package samy.comptecafet.operations;
 
 /**
  * Created by samy on 15/04/17.
