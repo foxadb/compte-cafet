@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -40,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView solde;
     private TextView resultat;
     private EditText resetSolde;
-    private LinearLayout historiqueLl;
+    private TableLayout historyTable;
 
     private static final LinearLayout.LayoutParams historiqueLp = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.TEXT_ALIGNMENT_CENTER);
 
     @Override
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         Button reset = (Button) findViewById(R.id.resetSoldeButton);
         reset.setOnClickListener(resetListener);
 
-        historiqueLl = (LinearLayout) findViewById(R.id.historique);
+        historyTable = (TableLayout) findViewById(R.id.historyTable);
         historiqueDb = new HistoryDb(this);
         loadHistorique(historiqueDb);
 
@@ -131,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
                 Achat achat = intent.getParcelableExtra("achat");
                 compte.achat(achat.getMontant());
                 resultat.setText("Achat effectué : " + achat.getMontantString());
-                addHistoryDb(achat);
-                addHistorique(achat);
+                long id = addHistoryDb(achat);
+                addHistorique(achat, id);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 resultat.setText("Achat annulé");
@@ -149,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
                     compte.retrait(operation.getMontant());
                     resultat.setText("Retrait effectué : " + operation.getMontantString());
                 }
-                addHistoryDb(operation);
-                addHistorique(operation);
+                long id = addHistoryDb(operation);
+                addHistorique(operation, id);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 resultat.setText("Opération annulée");
@@ -220,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         Iterator it = rowList.iterator();
         while (it.hasNext()) {
             HistoryDb.Row row = (HistoryDb.Row) it.next();
-            addHistorique(row);
+            addHistorique(row, row.get_Id());
         }
     }
 
@@ -234,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void addHistoryDb(Operation operation) {
+    private long addHistoryDb(Operation operation) {
         String date = sdf.format(operation.getDate());
         String type = operation.getTypeOperation().toString();
         String prix = operation.getMontantString();
@@ -242,21 +245,24 @@ public class MainActivity extends AppCompatActivity {
         if (operation.isAchat()) {
             liste = ((Achat) operation).getListeString();
         }
-        historiqueDb.createRow(date, type, prix, liste);
+        return historiqueDb.createRow(date, type, prix, liste);
     }
 
-    private void addHistorique(final Operation operation) {
-        Button b = new Button(this);
+    private void addHistorique(final Operation operation, final long rowId) {
+        final TableRow tableRow = new TableRow(this);
+        tableRow.setLayoutParams(historiqueLp);
+
+        Button button = new Button(this);
         String date = sdf.format(operation.getDate());
         String type = operation.getTypeOperation().toString();
         String prix = operation.getMontantString();
 
         String descr = date + " \t" + type + " \t" + prix;
-        b.setBackgroundColor(0);
-        b.setTextSize(18);
-        b.setText(descr);
+        button.setBackgroundColor(Color.TRANSPARENT);
+        button.setTextSize(18);
+        button.setText(descr);
 
-        b.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
@@ -265,10 +271,56 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        historiqueLl.addView(b, 0, historiqueLp);
+        Button supprButton = new Button(this);
+        supprButton.setBackgroundColor(Color.TRANSPARENT);
+        supprButton.setTextColor(Color.RED);
+        supprButton.setTextSize(18);
+        supprButton.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+        supprButton.setText("Supprimer");
+
+        supprButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)  {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle(R.string.app_name);
+                builder.setMessage("Voulez-vous reset le solde à la valeur précédent cette transaction ? "
+                        + "\n\r" + operation.getTypeOperation().toString() + " " + operation.getMontantString());
+                builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        double incr = operation.getMontant();
+                        if (operation.isDepot()) {
+                            compte.incrSolde(-incr);
+                        } else {
+                            compte.incrSolde(incr);
+                        }
+                        solde.setText(compte.getSoldeString() + " €");
+                        saveCompte();
+                    }
+                });
+                builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+                historyTable.removeView(tableRow);
+                historiqueDb.deleteRow(rowId);
+            }
+        });
+
+        View space = new View(this);
+        space.setMinimumWidth(32);
+
+        tableRow.addView(button);
+        tableRow.addView(space);
+        tableRow.addView(supprButton);
+        historyTable.addView(tableRow, 0, historiqueLp);
     }
 
-    private void addHistorique(HistoryDb.Row row) {
+    private void addHistorique(final HistoryDb.Row row, final long rowId) {
         StringBuilder sb = new StringBuilder();
         sb.append(row.getDate());
         sb.append(",");
@@ -280,15 +332,18 @@ public class MainActivity extends AppCompatActivity {
 
         final String operationString = sb.toString();
 
-        Button b = new Button(this);
+        final TableRow tableRow = new TableRow(this);
+        tableRow.setLayoutParams(historiqueLp);
+
+        Button button = new Button(this);
         String[] chaine = operationString.split("[,]");
 
         String descr = chaine[0] + " \t " + chaine[1] + " \t" + chaine[2];
-        b.setBackgroundColor(0);
-        b.setTextSize(18);
-        b.setText(descr);
+        button.setBackgroundColor(Color.TRANSPARENT);
+        button.setTextSize(18);
+        button.setText(descr);
 
-        b.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
@@ -297,7 +352,54 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        historiqueLl.addView(b, 0, historiqueLp);
+        Button supprButton = new Button(this);
+        supprButton.setBackgroundColor(Color.TRANSPARENT);
+        supprButton.setTextColor(Color.RED);
+        supprButton.setTextSize(18);
+        supprButton.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+        supprButton.setText("Supprimer");
+
+        supprButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle(R.string.app_name);
+                builder.setMessage("Voulez-vous reset le solde à la valeur précédent cette transaction ? "
+                        + "\n\r" + row.getType() + " " + row.getPrix());
+                builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        double incr = Double.parseDouble(row.getPrix().replace(" €", ""));
+                        if (row.getType().equals("Dépôt")) {
+                            compte.incrSolde(-incr);
+                        } else {
+                            compte.incrSolde(incr);
+                        }
+                        solde.setText(compte.getSoldeString() + " €");
+                        saveCompte();
+                    }
+                });
+                builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+                historyTable.removeView(tableRow);
+                historiqueDb.deleteRow(rowId);
+
+            }
+        });
+
+        View space = new View(this);
+        space.setMinimumWidth(32);
+
+        tableRow.addView(button);
+        tableRow.addView(space);
+        tableRow.addView(supprButton);
+        historyTable.addView(tableRow, 0, historiqueLp);
     }
 
     @Override

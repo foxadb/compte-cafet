@@ -73,13 +73,13 @@ public class HistoryDb {
         db.close();
     }
 
-    public void createRow(String date, String type, String prix, String liste) {
+    public long createRow(String date, String type, String prix, String liste) {
         ContentValues initialValues = new ContentValues();
         initialValues.put("date", date);
         initialValues.put("type", type);
         initialValues.put("prix", prix);
         initialValues.put("liste", liste);
-        db.insert(DATABASE_TABLE, null, initialValues);
+        return db.insert(DATABASE_TABLE, null, initialValues);
     }
 
     public void deleteRow(long rowId) {

@@ -48,6 +48,10 @@ public class Compte implements Parcelable {
         this.solde = solde;
     }
 
+    public void incrSolde(double incr) {
+        this.solde += incr;
+    }
+
     public String getSoldeString() {
         return String.valueOf(Math.round(solde * 100) / 100.);
     }
