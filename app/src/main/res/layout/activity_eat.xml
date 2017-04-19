@@ -26,7 +26,6 @@
             android:id="@+id/soldeRestantText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1.23"
             android:text="Solde restant"
             android:textColor="@android:color/holo_green_dark"
             android:textSize="24sp"
@@ -57,19 +56,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_weight="1.23"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="16dp"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
         <TextView
             android:id="@+id/prixText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1.95"
             android:text="Prix"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="24sp"
@@ -97,18 +96,13 @@
 
     <LinearLayout
         android:id="@+id/linearLayout5"
-        android:layout_width="0dp"
+        android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="@+id/linearLayout3"
-        app:layout_constraintRight_toRightOf="@+id/linearLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        tools:layout_editor_absoluteX="8dp">
 
         <ToggleButton
             android:id="@+id/tierButton"
@@ -120,10 +114,13 @@
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="124dp" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/tierNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
 
         <ToggleButton
             android:id="@+id/demiButton"
@@ -137,10 +134,14 @@
             tools:layout_editor_absoluteX="74dp"
             tools:layout_editor_absoluteY="156dp" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/demiNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
 
         <ToggleButton
             android:id="@+id/dtierButton"
@@ -153,17 +154,26 @@
             android:textOn="2/3"
             tools:layout_editor_absoluteX="272dp"
             tools:layout_editor_absoluteY="124dp" />
+
+        <TextView
+            android:id="@+id/dtierNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout7"
-        android:layout_width="0dp"
+        android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="@+id/linearLayout5"
-        app:layout_constraintRight_toRightOf="@+id/linearLayout5"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        tools:layout_editor_absoluteX="8dp">
 
         <ToggleButton
             android:id="@+id/hotdogButton"
@@ -175,13 +185,18 @@
             android:checked="false"
             android:textOff="Hot-dog"
             android:textOn="Hot-dog"
+            android:textSize="12sp"
             tools:layout_editor_absoluteX="56dp"
             tools:layout_editor_absoluteY="172dp" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/hotdogNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
 
         <ToggleButton
             android:id="@+id/paniniButton"
@@ -193,10 +208,14 @@
             tools:layout_editor_absoluteX="152dp"
             tools:layout_editor_absoluteY="204dp" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/paniniNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
 
         <ToggleButton
             android:id="@+id/pizzaButton"
@@ -208,17 +227,46 @@
             tools:layout_editor_absoluteX="152dp"
             tools:layout_editor_absoluteY="204dp" />
 
+        <TextView
+            android:id="@+id/pizzaNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
+
     </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/linearLayout8"
-        android:layout_width="0dp"
+        android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="@+id/linearLayout7"
-        app:layout_constraintRight_toRightOf="@+id/linearLayout7"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+        tools:layout_editor_absoluteX="8dp">
+
+        <ToggleButton
+            android:id="@+id/sevenupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textOff="7Up"
+            android:textOn="7Up"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="284dp" />
+
+        <TextView
+            android:id="@+id/sevenupNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
 
         <ToggleButton
             android:id="@+id/cocaButton"
@@ -227,98 +275,289 @@
             android:layout_weight="1"
             android:textOff="Coca"
             android:textOn="Coca"
+            android:textSize="12sp"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="284dp" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/cocaNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
 
         <ToggleButton
-            android:id="@+id/iceteaButton"
+            android:id="@+id/cherryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textOff="Ice Tea"
-            android:textOn="Ice Tea" />
+            android:textOff="Cherry"
+            android:textOn="Cherry"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="364dp" />
+
+        <TextView
+            android:id="@+id/cherryNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
+
+        <ToggleButton
+            android:id="@+id/fantaButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textOff="Fanta"
+            android:textOn="Fanta"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="364dp" />
+
+        <TextView
+            android:id="@+id/fantaNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout9"
-        android:layout_width="0dp"
+        android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="@+id/linearLayout8"
-        app:layout_constraintRight_toRightOf="@+id/linearLayout8"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8"
+        tools:layout_editor_absoluteX="8dp">
+
+        <ToggleButton
+            android:id="@+id/oasisButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.70"
+            android:textOff="Oasis"
+            android:textOn="Oasis"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/oasisNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.70"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
+
+        <ToggleButton
+            android:id="@+id/iceteaButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.70"
+            android:textOff="Ice Tea"
+            android:textOn="Ice Tea"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/iceteaNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.70"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
+
+        <ToggleButton
+            android:id="@+id/marsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.68"
+            android:textOff="Mars"
+            android:textOn="Mars"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="152dp"
+            tools:layout_editor_absoluteY="364dp" />
+
+        <TextView
+            android:id="@+id/marsNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.70"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
+
+        <ToggleButton
+            android:id="@+id/marsglaceButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.70"
+            android:textOff="Mars glacé"
+            android:textOn="Mars glacé"
+            android:textSize="8sp"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="364dp" />
+
+        <TextView
+            android:id="@+id/marsglaceNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.70"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout9"
+        tools:layout_editor_absoluteX="8dp"
+        android:id="@+id/linearLayout13">
+
+        <ToggleButton
+            android:id="@+id/twixButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textOff="Twix"
+            android:textOn="Twix"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="364dp" />
+
+        <TextView
+            android:id="@+id/twixNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
+
+        <ToggleButton
+            android:id="@+id/snickersButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textOff="Snickers"
+            android:textOn="Snickers"
+            android:textSize="8sp"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="364dp" />
+
+        <TextView
+            android:id="@+id/snickersNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
 
         <ToggleButton
             android:id="@+id/kitkatButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.70"
+            android:layout_weight="1"
             android:textOff="Kit Kat"
             android:textOn="Kit Kat"
+            android:textSize="10sp"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="364dp" />
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.70" />
+        <TextView
+            android:id="@+id/kitkatNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
 
         <ToggleButton
             android:id="@+id/buenoButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.68"
-            android:text="Bueno"
+            android:layout_weight="1"
             android:textOff="Bueno"
             android:textOn="Bueno"
-            tools:layout_editor_absoluteX="152dp"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="364dp" />
 
+        <TextView
+            android:id="@+id/buenoNb"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAlignment="center" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:layout_weight="1"
+        android:layout_width="368dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="@+id/linearLayout9"
-        app:layout_constraintRight_toRightOf="@+id/linearLayout9"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout9">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout13"
+        tools:layout_editor_absoluteX="8dp">
 
-        <Button
-            android:id="@+id/acheter"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Acheter"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="32dp"
-            tools:layout_editor_absoluteY="460dp" />
+            android:text="Quantité"
+            android:textSize="24sp" />
 
         <View
-            android:layout_width="0dp"
+            android:layout_width="8dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/annuler"
+        <NumberPicker
+            android:id="@+id/produitNp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Annuler"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="225dp"
-            tools:layout_editor_absoluteY="460dp" />
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/acheter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Acheter" />
+
+            <Button
+                android:id="@+id/annuler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Annuler" />
+        </LinearLayout>
 
     </LinearLayout>
 

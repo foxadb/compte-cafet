@@ -16,22 +16,30 @@ public class Achat extends Operation {
 
     private static final HashMap<Produit, Double> prixProduits;
     static {
-        prixProduits = new HashMap<Produit, Double>();
+        prixProduits = new HashMap<>();
         prixProduits.put(Produit.TIER, 1.5);
         prixProduits.put(Produit.DEMI, 2.);
         prixProduits.put(Produit.DTIER, 2.5);
         prixProduits.put(Produit.HOTDOG, 1.);
         prixProduits.put(Produit.PANINI, 1.5);
         prixProduits.put(Produit.PIZZA, 2.);
+        prixProduits.put(Produit.SEVENUP, 0.6);
         prixProduits.put(Produit.COCA, 0.6);
+        prixProduits.put(Produit.CHERRY, 0.6);
+        prixProduits.put(Produit.OASIS, 0.6);
+        prixProduits.put(Produit.FANTA, 0.6);
         prixProduits.put(Produit.ICETEA, 0.7);
+        prixProduits.put(Produit.MARS, 0.5);
+        prixProduits.put(Produit.MARSGLACE, 0.7);
+        prixProduits.put(Produit.TWIX, 0.5);
+        prixProduits.put(Produit.SNICKERS, 0.5);
         prixProduits.put(Produit.KITKAT, 0.5);
         prixProduits.put(Produit.BUENO, 0.6);
     }
 
     public Achat(double montant) {
         super(TypeOperation.ACHAT, montant);
-        this.liste = new HashMap<Produit, Integer>();
+        this.liste = new HashMap<>();
     }
 
     public HashMap<Produit, Integer> getListe() {
@@ -42,9 +50,14 @@ public class Achat extends Operation {
         return prixProduits;
     }
 
-    public void addProduit(Produit produit, int quantite) {
-        setMontant(getMontant() + prixProduits.get(produit) * quantite);
-        liste.put(produit, quantite);
+    public void putProduit(Produit produit, int quantite) {
+        if (quantite > 0) {
+            if (liste.containsKey(produit)) {
+                removeProduit(produit);
+            }
+            setMontant(getMontant() + prixProduits.get(produit) * quantite);
+            liste.put(produit, quantite);
+        }
     }
 
     public void removeProduit(Produit produit) {

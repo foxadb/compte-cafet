@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -175,7 +175,43 @@ public class MainActivity extends AppCompatActivity {
             inputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
-            compte.setSolde(100);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle(R.string.app_name);
+            builder.setMessage("Bienvenue dans l'application Compte Cafet Ensimag. Entrer votre solde actuel :");
+
+            final EditText premierSolde = new EditText(MainActivity.this);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            premierSolde.setLayoutParams(lp);
+            premierSolde.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                    double nouveauSolde;
+                    if (premierSolde.getText().toString().equals("")) {
+                        nouveauSolde = 0;
+                    } else {
+                        nouveauSolde = Math.round(Double.parseDouble(premierSolde.getText().toString()) * 100) / 100.;
+                    }
+                    compte.setSolde(nouveauSolde);
+                    solde.setText(String.valueOf(nouveauSolde) + " €");
+                    saveCompte();
+                }
+            });
+            builder.setNegativeButton("Quitter", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                    MainActivity.this.finish();
+                    System.exit(0);
+                }
+            });
+
+            AlertDialog alert = builder.create();
+            alert.setView(premierSolde);
+            alert.show();
         }
     }
 
@@ -184,17 +220,7 @@ public class MainActivity extends AppCompatActivity {
         Iterator it = rowList.iterator();
         while (it.hasNext()) {
             HistoryDb.Row row = (HistoryDb.Row) it.next();
-            StringBuilder sb = new StringBuilder();
-
-            sb.append(row.getDate());
-            sb.append(",");
-            sb.append(row.getType());
-            sb.append(",");
-            sb.append(row.getPrix());
-            sb.append(",");
-            sb.append(row.getListe());
-
-            addHistorique(sb.toString());
+            addHistorique(row);
         }
     }
 
@@ -242,7 +268,18 @@ public class MainActivity extends AppCompatActivity {
         historiqueLl.addView(b, 0, historiqueLp);
     }
 
-    private void addHistorique(final String operationString) {
+    private void addHistorique(HistoryDb.Row row) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(row.getDate());
+        sb.append(",");
+        sb.append(row.getType());
+        sb.append(",");
+        sb.append(row.getPrix());
+        sb.append(",");
+        sb.append(row.getListe());
+
+        final String operationString = sb.toString();
+
         Button b = new Button(this);
         String[] chaine = operationString.split("[,]");
 

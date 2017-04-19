@@ -11,6 +11,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Parcelable;
 import android.util.Log;
 
 public class HistoryDb {
@@ -79,9 +80,6 @@ public class HistoryDb {
         initialValues.put("prix", prix);
         initialValues.put("liste", liste);
         db.insert(DATABASE_TABLE, null, initialValues);
-
-        List<Row> lol = fetchAllRows();
-        Log.d("Bonjour", lol.toString());
     }
 
     public void deleteRow(long rowId) {
