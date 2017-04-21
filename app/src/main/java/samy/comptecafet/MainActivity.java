@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                         dialog.dismiss();
                         compte.setSolde(nouveauSolde);
                         solde.setText(String.valueOf(nouveauSolde) + " €");
+                        resultat.setText("Solde reset à " + String.valueOf(nouveauSolde) + " €");
                         saveCompte();
                     }
                 });
