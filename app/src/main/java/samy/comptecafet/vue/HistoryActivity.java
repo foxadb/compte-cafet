@@ -1,9 +1,8 @@
-package samy.comptecafet;
+package samy.comptecafet.vue;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -13,9 +12,10 @@ import android.widget.TextView;
 import java.util.Iterator;
 import java.util.Map;
 
-import samy.comptecafet.operations.Achat;
-import samy.comptecafet.operations.Operation;
-import samy.comptecafet.operations.Produit;
+import samy.comptecafet.R;
+import samy.comptecafet.systeme.Achat;
+import samy.comptecafet.systeme.Operation;
+import samy.comptecafet.systeme.Produit;
 
 public class HistoryActivity extends AppCompatActivity {
 

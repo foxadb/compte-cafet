@@ -1,4 +1,4 @@
-package samy.comptecafet;
+package samy.comptecafet.vue;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,9 +11,10 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import samy.comptecafet.operations.Achat;
-import samy.comptecafet.operations.Compte;
-import samy.comptecafet.operations.Produit;
+import samy.comptecafet.R;
+import samy.comptecafet.systeme.Achat;
+import samy.comptecafet.systeme.Compte;
+import samy.comptecafet.systeme.Produit;
 
 public class EatActivity extends AppCompatActivity {
 

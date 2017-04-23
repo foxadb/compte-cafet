@@ -1,4 +1,4 @@
-package samy.comptecafet;
+package samy.comptecafet.vue;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,11 +13,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import samy.comptecafet.operations.Compte;
-import samy.comptecafet.operations.Operation;
-import samy.comptecafet.operations.TypeOperation;
-import samy.comptecafet.operations.Depot;
-import samy.comptecafet.operations.Retrait;
+import samy.comptecafet.R;
+import samy.comptecafet.systeme.Compte;
+import samy.comptecafet.systeme.Operation;
+import samy.comptecafet.systeme.TypeOperation;
+import samy.comptecafet.systeme.Depot;
+import samy.comptecafet.systeme.Retrait;
 
 public class MoneyActivity extends AppCompatActivity {
 

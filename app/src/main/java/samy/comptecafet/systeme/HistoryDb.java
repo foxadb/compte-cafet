@@ -1,4 +1,4 @@
-package samy.comptecafet;
+package samy.comptecafet.systeme;
 
 /**
  * Created by samy on 17/04/17.
@@ -11,12 +11,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Parcelable;
 import android.util.Log;
 
 public class HistoryDb {
 
-    class Row extends Object {
+    public class Row extends Object {
 
         private long _Id;
         private String date;

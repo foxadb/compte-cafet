@@ -1,4 +1,4 @@
-package samy.comptecafet;
+package samy.comptecafet.vue;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,9 +25,11 @@ import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 
-import samy.comptecafet.operations.Achat;
-import samy.comptecafet.operations.Compte;
-import samy.comptecafet.operations.Operation;
+import samy.comptecafet.R;
+import samy.comptecafet.systeme.Achat;
+import samy.comptecafet.systeme.Compte;
+import samy.comptecafet.systeme.HistoryDb;
+import samy.comptecafet.systeme.Operation;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -189,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT);
             premierSolde.setLayoutParams(lp);
-            premierSolde.setInputType(InputType.TYPE_CLASS_NUMBER);
+            premierSolde.setInputType(InputType.TYPE_CLASS_NUMBER |  InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
