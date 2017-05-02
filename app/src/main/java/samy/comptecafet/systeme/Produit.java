@@ -17,6 +17,7 @@ public enum Produit {
     FANTA,
     OASIS,
     ICETEA,
+    COUNTRY,
     TWIX,
     SNICKERS,
     MARS,
@@ -51,6 +52,8 @@ public enum Produit {
                 return "Fanta";
             case ICETEA:
                 return "Ice Tea";
+            case COUNTRY:
+                return "Kinder Country";
             case TWIX:
                 return "Twix";
             case SNICKERS:
@@ -62,7 +65,7 @@ public enum Produit {
             case KITKAT:
                 return "Kit Kat";
             case BUENO:
-                return "Bueno";
+                return "Kinder Bueno";
             default:
                 throw new IllegalArgumentException();
         }

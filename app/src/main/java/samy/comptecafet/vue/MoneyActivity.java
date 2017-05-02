@@ -132,9 +132,9 @@ public class MoneyActivity extends AppCompatActivity {
     private Operation createOperation() {
         switch (typeOperation) {
             case DEPOT:
-                return new Depot(Math.round(Double.parseDouble(montant.getText().toString())) * 100 / 100.);
+                return new Depot(Math.round(Double.parseDouble(montant.getText().toString()) * 100) / 100.);
             case RETRAIT:
-                return new Retrait(Math.round(Double.parseDouble(montant.getText().toString())) * 100 / 100.);
+                return new Retrait(Math.round(Double.parseDouble(montant.getText().toString()) * 100) / 100.);
             default:
                 throw new IllegalArgumentException();
         }

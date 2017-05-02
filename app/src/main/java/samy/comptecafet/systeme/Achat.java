@@ -25,10 +25,11 @@ public class Achat extends Operation {
         prixProduits.put(Produit.PIZZA, 2.);
         prixProduits.put(Produit.SEVENUP, 0.6);
         prixProduits.put(Produit.COCA, 0.6);
-        prixProduits.put(Produit.CHERRY, 0.6);
-        prixProduits.put(Produit.OASIS, 0.6);
+        prixProduits.put(Produit.CHERRY, 0.7);
+        prixProduits.put(Produit.OASIS, 0.7);
         prixProduits.put(Produit.FANTA, 0.6);
-        prixProduits.put(Produit.ICETEA, 0.7);
+        prixProduits.put(Produit.ICETEA, 0.6);
+        prixProduits.put(Produit.COUNTRY, 0.35);
         prixProduits.put(Produit.MARS, 0.5);
         prixProduits.put(Produit.MARSGLACE, 0.7);
         prixProduits.put(Produit.TWIX, 0.5);

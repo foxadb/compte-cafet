@@ -117,33 +117,56 @@ public class HistoryActivity extends AppCompatActivity {
 
     public void addRows(String s) {
         String[] chaine = s.split("[,]");
-        int i = 3;
 
-        while (i < chaine.length) {
+        if (chaine[1].equals("Dépôt") || chaine[1].equals("Retrait")) {
             TableRow row = new TableRow(this);
             row.setLayoutParams(rowLp);
 
             TextView produit = new TextView(this);
-            produit.setText(chaine[i]);
-            ++i;
+            produit.setText(chaine[1]);
 
             TextView quantite = new TextView(this);
-            quantite.setText(chaine[i]);
-            ++i;
+            quantite.setText(String.valueOf(1));
 
             TextView prixUnitaire = new TextView(this);
-            prixUnitaire.setText(chaine[i]);
-            ++i;
+            prixUnitaire.setText(chaine[2]);
 
             TextView prixTotal = new TextView(this);
-            prixTotal.setText(chaine[i]);
-            ++i;
+            prixTotal.setText(chaine[2]);
 
             row.addView(produit);
             row.addView(quantite);
             row.addView(prixUnitaire);
             row.addView(prixTotal);
             table.addView(row);
+        } else {
+            int i = 3;
+            while (i < chaine.length) {
+                TableRow row = new TableRow(this);
+                row.setLayoutParams(rowLp);
+
+                TextView produit = new TextView(this);
+                produit.setText(chaine[i]);
+                ++i;
+
+                TextView quantite = new TextView(this);
+                quantite.setText(chaine[i]);
+                ++i;
+
+                TextView prixUnitaire = new TextView(this);
+                prixUnitaire.setText(chaine[i]);
+                ++i;
+
+                TextView prixTotal = new TextView(this);
+                prixTotal.setText(chaine[i]);
+                ++i;
+
+                row.addView(produit);
+                row.addView(quantite);
+                row.addView(prixUnitaire);
+                row.addView(prixTotal);
+                table.addView(row);
+            }
         }
     }
 

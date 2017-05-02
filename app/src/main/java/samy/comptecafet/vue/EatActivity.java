@@ -99,9 +99,9 @@ public class EatActivity extends AppCompatActivity {
         TextView snickersNb = (TextView) findViewById(R.id.snickersNb);
         setProduitListener(snickers, snickersNb, Produit.SNICKERS);
 
-        ToggleButton mars = (ToggleButton) findViewById(R.id.marsButton);
-        TextView marsNb = (TextView) findViewById(R.id.marsNb);
-        setProduitListener(mars, marsNb, Produit.MARS);
+        ToggleButton country = (ToggleButton) findViewById(R.id.countryButton);
+        TextView countryNb = (TextView) findViewById(R.id.countryNb);
+        setProduitListener(country, countryNb, Produit.COUNTRY);
 
         ToggleButton marsglace = (ToggleButton) findViewById(R.id.marsglaceButton);
         TextView marsglaceNb = (TextView) findViewById(R.id.marsglaceNb);

@@ -377,18 +377,18 @@
             android:textAlignment="center" />
 
         <ToggleButton
-            android:id="@+id/marsButton"
+            android:id="@+id/countryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.68"
-            android:textOff="Mars"
-            android:textOn="Mars"
-            android:textSize="12sp"
+            android:textOff="Country"
+            android:textOn="Country"
+            android:textSize="10sp"
             tools:layout_editor_absoluteX="152dp"
             tools:layout_editor_absoluteY="364dp" />
 
         <TextView
-            android:id="@+id/marsNb"
+            android:id="@+id/countryNb"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.70"
