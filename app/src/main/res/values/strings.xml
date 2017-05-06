@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Compte Cafet Ensimag</string>
+    <string name="exit_name">Quitter</string>
 </resources>

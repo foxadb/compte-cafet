@@ -9,6 +9,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -80,6 +83,28 @@ public class MainActivity extends AppCompatActivity {
         historiqueDb = new HistoryDb(this);
         loadHistorique(historiqueDb);
 
+    }
+
+    private void exit(){
+        Toast.makeText(this, R.string.exit_name, Toast.LENGTH_LONG).show();
+        MainActivity.this.finish();
+        System.exit(0);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_exit:
+                exit();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private View.OnClickListener consommerListener = new View.OnClickListener() {
@@ -286,19 +311,38 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view)  {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle(R.string.app_name);
-                builder.setMessage("Voulez-vous reset le solde à la valeur précédent cette transaction ? "
+                builder.setMessage("Voulez-vous supprimer cette transaction ? "
                         + "\n\r" + operation.getTypeOperation().toString() + " " + operation.getMontantString());
                 builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
-                        double incr = operation.getMontant();
-                        if (operation.isDepot()) {
-                            compte.incrSolde(-incr);
-                        } else {
-                            compte.incrSolde(incr);
-                        }
-                        solde.setText(compte.getSoldeString() + " €");
-                        saveCompte();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setTitle(R.string.app_name);
+                        builder.setMessage("Voulez-vous reset le solde à la valeur précédent cette transaction ? "
+                                + "\n\r" + operation.getTypeOperation().toString() + " " + operation.getMontantString());
+                        builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                                double incr = operation.getMontant();
+                                if (operation.isDepot()) {
+                                    compte.incrSolde(-incr);
+                                } else {
+                                    compte.incrSolde(incr);
+                                }
+                                solde.setText(compte.getSoldeString() + " €");
+                                saveCompte();
+                            }
+                        });
+                        builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog alert = builder.create();
+                        alert.show();
+
+                        historyTable.removeView(tableRow);
+                        historiqueDb.deleteRow(rowId);
                     }
                 });
                 builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
@@ -309,8 +353,6 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog alert = builder.create();
                 alert.show();
 
-                historyTable.removeView(tableRow);
-                historiqueDb.deleteRow(rowId);
             }
         });
 
@@ -367,19 +409,38 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle(R.string.app_name);
-                builder.setMessage("Voulez-vous reset le solde à la valeur précédent cette transaction ? "
+                builder.setMessage("Voulez-vous supprimer cette transaction ? "
                         + "\n\r" + row.getType() + " " + row.getPrix());
                 builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
-                        double incr = Double.parseDouble(row.getPrix().replace(" €", ""));
-                        if (row.getType().equals("Dépôt")) {
-                            compte.incrSolde(-incr);
-                        } else {
-                            compte.incrSolde(incr);
-                        }
-                        solde.setText(compte.getSoldeString() + " €");
-                        saveCompte();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setTitle(R.string.app_name);
+                        builder.setMessage("Voulez-vous reset le solde à la valeur précédent cette transaction ? "
+                                + "\n\r" + row.getType() + " " + row.getPrix());
+                        builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                                double incr = Double.parseDouble(row.getPrix().replace(" €", ""));
+                                if (row.getType().equals("Dépôt")) {
+                                    compte.incrSolde(-incr);
+                                } else {
+                                    compte.incrSolde(incr);
+                                }
+                                solde.setText(compte.getSoldeString() + " €");
+                                saveCompte();
+                            }
+                        });
+                        builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog alert = builder.create();
+                        alert.show();
+
+                        historyTable.removeView(tableRow);
+                        historiqueDb.deleteRow(rowId);
                     }
                 });
                 builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
@@ -389,10 +450,6 @@ public class MainActivity extends AppCompatActivity {
                 });
                 AlertDialog alert = builder.create();
                 alert.show();
-
-                historyTable.removeView(tableRow);
-                historiqueDb.deleteRow(rowId);
-
             }
         });
 

@@ -31,7 +31,8 @@ public class Achat extends Operation {
         prixProduits.put(Produit.ICETEA, 0.6);
         prixProduits.put(Produit.COUNTRY, 0.35);
         prixProduits.put(Produit.MARS, 0.5);
-        prixProduits.put(Produit.MARSGLACE, 0.7);
+        prixProduits.put(Produit.MARSGLACE, 0.5);
+        prixProduits.put(Produit.MRFREEZE, 0.2);
         prixProduits.put(Produit.TWIX, 0.5);
         prixProduits.put(Produit.SNICKERS, 0.5);
         prixProduits.put(Produit.KITKAT, 0.5);

@@ -22,6 +22,7 @@ public enum Produit {
     SNICKERS,
     MARS,
     MARSGLACE,
+    MRFREEZE,
     KITKAT,
     BUENO;
 
@@ -62,6 +63,8 @@ public enum Produit {
                 return "Mars";
             case MARSGLACE:
                 return "Mars glacé";
+            case MRFREEZE:
+                return "Mr Freeze";
             case KITKAT:
                 return "Kit Kat";
             case BUENO:

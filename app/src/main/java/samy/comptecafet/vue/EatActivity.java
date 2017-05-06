@@ -83,10 +83,6 @@ public class EatActivity extends AppCompatActivity {
         TextView oasisNb = (TextView) findViewById(R.id.oasisNb);
         setProduitListener(oasis, oasisNb, Produit.OASIS);
 
-        ToggleButton fanta = (ToggleButton) findViewById(R.id.fantaButton);
-        TextView fantaNb = (TextView) findViewById(R.id.fantaNb);
-        setProduitListener(fanta, fantaNb, Produit.FANTA);
-
         ToggleButton icetea = (ToggleButton) findViewById(R.id.iceteaButton);
         TextView iceteaNb = (TextView) findViewById(R.id.iceteaNb);
         setProduitListener(icetea, iceteaNb, Produit.ICETEA);
@@ -106,6 +102,10 @@ public class EatActivity extends AppCompatActivity {
         ToggleButton marsglace = (ToggleButton) findViewById(R.id.marsglaceButton);
         TextView marsglaceNb = (TextView) findViewById(R.id.marsglaceNb);
         setProduitListener(marsglace, marsglaceNb, Produit.MARSGLACE);
+
+        ToggleButton mrfreeze = (ToggleButton) findViewById(R.id.mrfreezeButton);
+        TextView mrfreezeNb = (TextView) findViewById(R.id.mrfreezeNb);
+        setProduitListener(mrfreeze, mrfreezeNb, Produit.MRFREEZE);
 
         ToggleButton kitkat = (ToggleButton) findViewById(R.id.kitkatButton);
         TextView kitkatNb = (TextView) findViewById(R.id.kitkatNb);
